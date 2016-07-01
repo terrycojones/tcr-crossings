@@ -1,0 +1,27 @@
+body {
+  /* padding-top: 50px; */
+}
+
+#map {
+    padding-top: 50px;
+    height: 100%;
+    width: 100%;
+  /* text-align: center; */
+}
+
+#info {
+    visibility: hidden;
+    position: fixed;
+    top: 57px;
+    left: 41px;
+    width: 320px;
+}
+
+#crossing-name {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#close-info {
+    float: right;
+};
