@@ -4,6 +4,15 @@ This site provides a map of the
 [Transcontinental Race](http://www.transcontinental.cc/) (TCR) 2016 border
 crossings, allowing people to comment on them.
 
+## Questions
+
+* Will the site be needed once TCR 2016 is over? I.e., can I deploy it on
+  an Amazon server for the duration and then take it offline (saving all
+  the comments, of course)? Or should the site remain up?
+* Should this be deployed on Ivan's linode server?
+* Should we use `borders.transcontinental.cc`,
+  `crossings.transcontinental.cc`, or what?
+
 ## TODO
 
 ### High priority
@@ -22,7 +31,7 @@ crossings, allowing people to comment on them.
 
 * Deploy.
 * Get feedback from others, especially people with different browsers or OS.
-* Make `borders.transcontinental.cc` point to the deployed server.
+* Ask Shankie to point the subdomain at the deployed server.
 * Ensure the site restarts if the host VM is rebooted.
 
 ### Low priority / questionable
