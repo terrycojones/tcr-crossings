@@ -90,6 +90,13 @@ def main():
                   (coords, lineNumber), file=sys.stderr)
             continue
 
+        # Round latitude & longitude to 5 decimals. This provides for
+        # accuracy down to 1.1 meters. I don't keep all the decimal places
+        # for display purposes (we have some coords that have many places
+        # and these look odd in the UI).
+        lat = round(lat, 5)
+        lon = round(lon, 5)
+
         if not (country1 and country2):
             print('Skipped record %d due to missing country.' % lineNumber,
                   file=sys.stderr)

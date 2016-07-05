@@ -1,1 +1,2 @@
-data/crossings.json
+www/crossings/static/crossings/crossings.json
+__pycache__

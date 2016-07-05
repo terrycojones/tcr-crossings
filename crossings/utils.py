@@ -1,7 +1,10 @@
 def dmsToFloat(s):
     """
+    Convert a degrees, minutes & seconds string to a float value.
+
+    @param s: A C{str} giving degrees, minutes and seconds as well as a
+        one-letter direction. E.g. 48°12'30.0"N
     """
-    # print('got %r' % s)
     s = s.replace('°', ' ').replace("'", ' ').replace('"', ' ')
     direction = s[-1].lower()
     assert direction in ('n', 's', 'e', 'w')
@@ -15,7 +18,6 @@ def dmsToFloat(s):
         dms.append(0)
 
     if len(dms) == 3:
-        # print(list(float(x) for x in dms))
         return multiplier * sum(float(x) / 60 ** n for n, x in enumerate(dms))
 
 
@@ -23,7 +25,7 @@ def convertLatLong(latlong):
     """
     Convert a string of latitude/longitude into a pair of floats.
     """
-    # Split, either on comman or whitespace, or fail.
+    # Split, either on comma or whitespace, or fail.
     try:
         origLat, origLon = latlong.split(',')
     except ValueError:

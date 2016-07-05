@@ -1,7 +1,8 @@
-# from django.http import HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
+from django.core import serializers
 
-from .models import Crossing
+from .models import Crossing, Comment
 
 
 def index(request):
@@ -14,3 +15,10 @@ def detail(request, crossingId):
     crossing = get_object_or_404(Crossing, pk=crossingId)
     # return HttpResponse("You're looking at crossing %s." % crossingId)
     return render(request, 'crossings/detail.html', {'crossing': crossing})
+
+
+def comments(request, crossingId):
+    return HttpResponse(
+        serializers.serialize(
+            'json', Comment.objects.filter(crossingId=crossingId)),
+        content_type='application/json')

@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from .models import Crossing
+from .models import Comment
 
-admin.site.register(Crossing)
+admin.site.register(Comment)

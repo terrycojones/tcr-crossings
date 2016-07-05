@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
     'crossings.apps.CrossingsConfig',
 ]
 
@@ -101,6 +102,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# For python-social-auth.
+# See http://psa.matiasaguirre.net/docs/configuration/django.html
+# AUTHENTICATION_BACKENDS = (
+#     'social.backends.open_id.OpenIdAuth',
+#     'social.backends.google.GoogleOpenId',
+#     'social.backends.google.GoogleOAuth2',
+#     'social.backends.google.GoogleOAuth',
+#     'social.backends.twitter.TwitterOAuth',
+#     'social.backends.yahoo.YahooOpenId',
+#     'django.contrib.auth.backends.ModelBackend',
+# )
+
+# For python-social-auth.
+# See http://psa.matiasaguirre.net/docs/configuration/django.html
+# TEMPLATE_CONTEXT_PROCESSORS = (
+#     'social.apps.django_app.context_processors.backends',
+#     'social.apps.django_app.context_processors.login_redirect',
+# )
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/

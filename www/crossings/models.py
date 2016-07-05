@@ -67,7 +67,10 @@ class Crossing(models.Model):
 
 
 class Comment(models.Model):
-    crossing = models.ForeignKey(Crossing, on_delete=models.CASCADE)
+    # crossing = models.ForeignKey(Crossing, on_delete=models.CASCADE)
+    crossingId = models.IntegerField()
+    # Note that the max_length below should be the same as we use in
+    # www/crossings/templates/crossings/index.html
     text = models.CharField(max_length=4000)
     lastUpdate = models.DateTimeField('last update', auto_now=True)
 

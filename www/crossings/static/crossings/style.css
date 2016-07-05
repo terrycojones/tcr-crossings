@@ -6,22 +6,34 @@ body {
     padding-top: 50px;
     height: 100%;
     width: 100%;
-  /* text-align: center; */
 }
 
 #info {
-    visibility: hidden;
+    display: none;
     position: fixed;
     top: 57px;
     left: 41px;
     width: 320px;
 }
 
-#crossing-name {
+#info-overview {
+    display: none;
+}
+
+#info-comments
+{
+    display: none;
+}
+
+.info-panel-heading {
     font-weight: bold;
     font-size: 24px;
 }
 
-#close-info {
+#close-info-overview {
+    float: right;
+};
+
+#close-info-comments {
     float: right;
 };

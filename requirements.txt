@@ -1,3 +1,4 @@
 Django==1.9.7
 discover==0.4.0
 six==1.10.0
+python-social-auth==0.2.19

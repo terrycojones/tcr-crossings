@@ -1,19 +1,105 @@
 var map,
-    pinnedFeature = null;
+    pinnedFeature = null,
+    commentText = document.getElementById('comment-text');
 
 var hideInfo = function(){
-    document.getElementById('info').style.visibility = 'hidden';
+    document.getElementById('info').style.display = 'none';
+    document.getElementById('info-overview').style.display = 'none';
+    document.getElementById('info-comments').style.display = 'none';
 };
 
 var showInfo = function(){
-    document.getElementById('info').style.visibility = 'visible';
+    document.getElementById('info').style.display = 'block';
+    document.getElementById('info-overview').style.display = 'block';
+    document.getElementById('info-comments').style.display = 'none';
+};
+
+var enableCommentSubmit = function(){
+    // $('#comment-submit').prop('disabled', false);
+};
+
+var disableCommentSubmit = function(){
+    // $('#comment-submit').prop('disabled', true);
 };
 
 // Arrange to close the info box when its close button is clicked.
-$('#close-info').click(function(){
+$('#close-info-comments').click(function(){
     pinnedFeature = null;
     hideInfo();
 });
+
+$('#close-info-overview').click(function(){
+    pinnedFeature = null;
+    hideInfo();
+});
+
+// Handle clicks on the Overview tab.
+$('#crossing-tabs a[href="#overview"]').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+    document.getElementById('info-overview').style.display = 'block';
+    document.getElementById('info-comments').style.display = 'none';
+})
+
+
+// Handle clicks on the Comments tab.
+$('#crossing-tabs a[href="#comments"]').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+    document.getElementById('info-overview').style.display = 'none';
+    document.getElementById('info-comments').style.display = 'block';
+
+    if (!pinnedFeature){
+        console.log('Comments tab clicked, but no crossing selected!');
+        alert('Comment tab clicked, but no crossing selected!');
+        return;
+    }
+
+    // Clear the comment box and set the Submit button to be disabled.
+    //
+    // TODO: Only do this when a new crossing is selected. That way we
+    // let the user go back & forth between the overview & the comments
+    // without wiping their text.
+    commentText.value = '';
+    disableCommentSubmit();
+
+    var crossingId = pinnedFeature.get('crossing').id;
+    $.ajax('/crossings/' + crossingId + '/comments.json')
+        .done(populateComments)
+        .fail(function(){
+            alert('Error fetching comments for crossing ' + crossingId);
+        });
+})
+
+var textChange = function(){
+    if (commentText.value === ''){
+        disableCommentSubmit();
+    }
+    else {
+        enableCommentSubmit()
+    }
+};
+
+// Handle textarea changes in the comment box.  See:
+// http://stackoverflow.com/questions/2823733/textarea-onchange-detection
+// and note that FF does not fire 'change' events in textareas, for some
+// inexplicable reason.
+if (commentText.addEventListener) {
+    commentText.addEventListener('input', function() {
+        // event handling code for sane browsers
+        textChange();
+    }, false);
+} else if (commentText.attachEvent) {
+    commentText.attachEvent('onpropertychange', function() {
+        // IE-specific event handling code
+        textChange();
+    });
+}
+
+
+var populateComments = function(comments){
+    console.log('populateComments', comments);
+};
 
 var updateInfo = function(feature){
 
@@ -132,8 +218,21 @@ var addCrossings = function(data){
     });
 
     var rasterLayer = new ol.layer.Tile({
+        // ol.source.MapQuest() looks better but doesn't work, as ol.js
+        // references an unknown variable (c).
         source: new ol.source.OSM()
     });
+
+    /*
+
+    // Mapbox!
+    var rasterLayer = new ol.layer.Tile({
+        source: new ol.source.TileJSON({
+            url: 'http://api.tiles.mapbox.com/v3/mapbox.geography-class.json',
+            crossOrigin: ''
+        })
+    });
+    */
 
     map = new ol.Map({
         target: 'map',
@@ -158,10 +257,8 @@ var addCrossings = function(data){
     });
 };
 
-var jqxhr = $.ajax('/static/crossings/crossings.json')
-    .done(function(data){
-        addCrossings(data);
-    })
+$.ajax('/static/crossings/crossings.json')
+    .done(addCrossings)
     .fail(function(){
         alert('Error fetching crossings data.');
     });

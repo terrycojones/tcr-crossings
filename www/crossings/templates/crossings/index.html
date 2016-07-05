@@ -70,63 +70,93 @@
 
     <div class="map" id="map"></div>
 
-    <div id="info" class="panel panel-default">
-      <!-- Default panel contents -->
-      <div class="panel-heading">
-        <span id="crossing-name">xxx</span>
+    <div id="info">
+      <ul class="nav nav-tabs" id="crossing-tabs">
+        <li role="presentation" class="active"><a href="#overview">Overview</a></li>
+        <li role="presentation"><a href="#comments">Comments</a></li>
+      </ul>
 
-        <!-- Close button -->
-        <button type="button" class="btn btn-default" aria-label="Close" id="close-info">
-          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        </button>
+      <!-- Overview - contents of first tab. -->
+      <div class="panel panel-default" id="info-overview">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+          <span id="crossing-name" class="info-panel-heading">xxx</span>
 
-        <br/>
+          <!-- Close button -->
+          <button type="button" class="close" id="close-info-overview"
+                  aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          
+          <br/>
 
-        Crossing from <span id="crossing-country1Place">xxx</span> (<span id="crossing-country1">xxx</span>)<br/>
-        into <span id="crossing-country2Place">xxx</span> (<span id="crossing-country2">xxx</span>)
-      </div>
+          Crossing from <span id="crossing-country1Place">xxx</span> (<span id="crossing-country1">xxx</span>)<br/>
+          into <span id="crossing-country2Place">xxx</span> (<span id="crossing-country2">xxx</span>)
+        </div><!-- Overview panel heading -->
 
-      <!-- Table -->
-      <table class="table">
-        <tbody>
-          <tr>
-            <td>Active?</td>
-            <td><span id="crossing-active">xxx</span></td>
-          </tr>
-          <tr>
-            <td>Bike crossing?</td>
-            <td><span id="crossing-bikeCrossing">xxx</span></td>
-          </tr>
-          <tr>
-            <td>Crossing type:</td>
-            <td><span id="crossing-crossingType">xxx</span></td>
-          </tr>
-          <tr>
-            <td>Hours:</td>
-            <td><span id="crossing-hours">xxx</span></td>
-          </tr>
-          <tr>
-            <td>Latitude:</td>
-            <td><span id="crossing-latitude">xxx</span></td>
-          </tr>
-          <tr>
-            <td>Longitude:</td>
-            <td><span id="crossing-longitude">xxx</span></td>
-          </tr>
-          <tr>
-            <td>Notes:</td>
-            <td><span id="crossing-notes">xxx</span></td>
-          </tr>
-          <tr>
-            <td>Other names:</td>
-            <td><span id="crossing-otherNames">xxx</span></td>
-          </tr>
-          <tr>
-            <td>TCR4 survey?</td>
-            <td><span id="crossing-tcr4Survey">xxx</span></td>
-          </tr>
-      </table>
-    </div>
+        <!-- Overview table -->
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Active?</td>
+              <td><span id="crossing-active">xxx</span></td>
+            </tr>
+            <tr>
+              <td>Bike crossing?</td>
+              <td><span id="crossing-bikeCrossing">xxx</span></td>
+            </tr>
+            <tr>
+              <td>Crossing type:</td>
+              <td><span id="crossing-crossingType">xxx</span></td>
+            </tr>
+            <tr>
+              <td>Hours:</td>
+              <td><span id="crossing-hours">xxx</span></td>
+            </tr>
+            <tr>
+              <td>Latitude:</td>
+              <td><span id="crossing-latitude">xxx</span></td>
+            </tr>
+            <tr>
+              <td>Longitude:</td>
+              <td><span id="crossing-longitude">xxx</span></td>
+            </tr>
+            <tr>
+              <td>Notes:</td>
+              <td><span id="crossing-notes">xxx</span></td>
+            </tr>
+            <tr>
+              <td>Other names:</td>
+              <td><span id="crossing-otherNames">xxx</span></td>
+            </tr>
+            <tr>
+              <td>TCR4 survey?</td>
+              <td><span id="crossing-tcr4Survey">xxx</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- Overview panel -->
+
+      <div class="panel panel-default" id="info-comments">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+          <span class="info-panel-heading">Comments</span>
+
+          <!-- Close button -->
+          <button type="button" class="close" id="close-info-comments"
+                  aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+          <br/>
+
+          <!-- Comment box -->
+          <form>
+            <textarea placeholder="Add a comment..." rows="2" wrap="soft"
+                      class="form-control" maxlength="4000" id="comment-text"></textarea>
+            <button type="submit" class="btn btn-default" id="comment-submit">Submit</button>
+          </form>
+
+        </div><!-- Comments panel heading -->
+      </div><!-- Comments panel -->
+
+    </div><!-- info -->
 
     <!--
     {% if crossings_list %}
@@ -151,12 +181,10 @@
       ga('send', 'pageview');
     </script>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"
             type="text/javascript">
     </script>
 
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
             type="text/javascript"

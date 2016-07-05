@@ -2,7 +2,7 @@
 
 XARGS := $(shell which parallel || which xargs) $(shell test $$(uname) = Linux && echo -r)
 
-data/crossings.json: data/crossings.csv
+www/crossings/static/crossings/crossings.json: data/crossings.csv
 	env PYTHONPATH=. bin/crossings-to-json.py < $< > $@
 
 test:
