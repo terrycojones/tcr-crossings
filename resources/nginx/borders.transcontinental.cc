@@ -24,7 +24,7 @@ server {
     }
 
     location / {
-        uwsgi_pass  borders;
-        include     /opt/borders/borders.transcontinental.cc/resources/nginx/uwsgi_params;
+        uwsgi_pass borders;
+        include /etc/nginx/uwsgi_params;
     }
 }
