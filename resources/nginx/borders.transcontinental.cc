@@ -1,6 +1,6 @@
 upstream borders {
     server 127.0.0.1:8000;
-    keepalive 8;
+    # keepalive 8;
 }
 
 server {
@@ -9,7 +9,8 @@ server {
     server_name borders.transcontinental.cc;
     charset utf-8;
 
-    access_log /var/log/nginx/borders.transcontinental.cc.access.log;
+    access_log /var/log/nginx/borders.transcontinental.cc-access.log;
+    error_log /var/log/nginx/borders.transcontinental.cc-errors.log;
 
     client_max_body_size 75M;
 
