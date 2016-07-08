@@ -1,2 +1,3 @@
 www/crossings/static/crossings/crossings.json
 __pycache__
+*.pyc
