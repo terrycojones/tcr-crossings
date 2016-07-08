@@ -138,12 +138,12 @@ def _upload():
     local('rm %(path)s.tar.bz2' % env)
 
 
-def x_install_local_settings():
+def _install_local_settings():
     """Install the server's local_settings.py file."""
     require('hosts', provided_by=[production])
     # Install the local settings from the resources directory.
     run('cp %(path)s/resources/django/%(sitename)s-local_settings.py '
-        '%(path)s/fluidinfo/local_settings.py' % env)
+        '%(path)s/www/server/local_settings.py' % env)
 
 
 def _upload_static_files():
@@ -176,7 +176,7 @@ def _deploy(test=True):
     _upload_static_files()
     # _make_virtualenv()
     # _install_dependencies()
-    # _install_local_settings()
+    _install_local_settings()
     _update_init()
     _update_nginx()
     # with settings(warn_only=True):
