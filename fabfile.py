@@ -45,13 +45,13 @@ def production():
 # ------------------------- HELPER FUNCTIONS -------------------------
 
 
-def _make_virtualenv():
+def x_make_virtualenv():
     """Create a new virtualenv."""
     require('hosts', provided_by=[production])
     run('cd %(path)s && virtualenv .' % env)
 
 
-def _install_dependencies():
+def x_install_dependencies():
     """Use pip to install required packages."""
     # PyPI mirror list is at http://pypi.python.org/mirrors
     require('hosts', provided_by=[production])
@@ -65,7 +65,7 @@ def _install_dependencies():
         '-r %(path)s/requirements.txt 2>%(path)s-pip.errs' % env)
 
 
-def _test_deployment():
+def x_test_deployment():
     """Tests the deployed website passes the tests."""
     require('hosts', provided_by=[production])
     try:
@@ -135,9 +135,10 @@ def _upload():
           'bzip2 > %(path)s.tar.bz2' % env)
     put('%(path)s.tar.bz2' % env, '.')
     run('tar xfj %(path)s.tar.bz2' % env)
+    local('rm %(path)s.tar.bz2' % env)
 
 
-def _install_local_settings():
+def x_install_local_settings():
     """Install the server's local_settings.py file."""
     require('hosts', provided_by=[production])
     # Install the local settings from the resources directory.
@@ -156,10 +157,10 @@ def _upload_static_files():
     local('tar cfvj %(path)s-static.tar.bz2 www/collected-static' % env)
     put('%(path)s-static.tar.bz2' % env, '.')
     run('cd %(path)s && tar xfj ../%(path)s-static.tar.bz2' % env)
-    local("rm -fr www/collected-static")
+    local("rm -fr www/collected-static %(path)s-static.tar.bz2" % env)
 
 
-def _idiot_check():
+def x_idiot_check():
     print('You want me to update the live website without running tests..?')
     print('Only use this for trivial changes!')
     idiotCheck = raw_input("Are you sure? (Type 'yes') ").strip()
