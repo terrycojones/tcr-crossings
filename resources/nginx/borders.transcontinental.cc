@@ -1,5 +1,6 @@
 upstream borders {
-    server 127.0.0.1:8000;
+    server unix:///opt/borders/server.sock
+    # server 127.0.0.1:8000;
     # keepalive 8;
 }
 
