@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'crossings.apps.CrossingsConfig',
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected-static')
+
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

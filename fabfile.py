@@ -149,15 +149,14 @@ def _upload_static_files():
     """Tell Django to (locally) collect all needed static files and upload
     and unpack them."""
     require('hosts', provided_by=[production])
-    local("rm -fr fluidinfo/static")
-    local("mkdir fluidinfo/static")
-    local("cd fluidinfo && python manage.py collectstatic --noinput --clear")
-    local("cd fluidinfo && "
-          "FLUIDINFO_COM_DEPLOYING=1 python manage.py compress --force")
-    local('tar cfvj %(path)s-static.tar.bz2 fluidinfo/static' % env)
+    local("rm -fr www/collected-static")
+    local("mkdir www/collected-static")
+    local("cd www && python manage.py collectstatic --noinput -v0")
+    # local("cd www && python manage.py compress --force")
+    local('tar cfvj %(path)s-static.tar.bz2 www/collected-static' % env)
     put('%(path)s-static.tar.bz2' % env, '.')
     run('cd %(path)s && tar xfj ../%(path)s-static.tar.bz2' % env)
-    local("rm -fr fluidinfo/static")
+    local("rm -fr www/collected-static")
 
 
 def _idiot_check():
@@ -172,22 +171,18 @@ def _idiot_check():
 
 def _deploy(test=True):
     """Deploy the website and run the tests if C{test} is C{True}."""
-    if not test:
-        _idiot_check()
     _upload()
     _upload_static_files()
-    _make_virtualenv()
-    _install_dependencies()
-    _install_local_settings()
+    # _make_virtualenv()
+    # _install_dependencies()
+    # _install_local_settings()
     _update_init()
     _update_nginx()
-    if test:
-        _test_deployment()
-    with settings(warn_only=True):
+    # with settings(warn_only=True):
         # The site may not be running, ignore any error.
-        stop_django()
+        # stop_django()
     _replace_symlink()
-    start_django()
+    # start_django()
     _restart_nginx_if_config_has_changed()
 
 
@@ -264,10 +259,3 @@ def deploy():
     Wraps all the steps up to deploy to the live server.
     """
     _deploy()
-
-
-def upload():
-    """
-    Test upload.
-    """
-    _upload()
