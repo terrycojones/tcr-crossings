@@ -2,6 +2,39 @@ var map,
     pinnedFeature = null,
     commentText = document.getElementById('comment-text');
 
+// Below CSRF stuff from https://docs.djangoproject.com/en/1.9/ref/csrf/
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+        }
+    }
+});
+// Above CSRF stuff from https://docs.djangoproject.com/en/1.9/ref/csrf/
+
 // From mustache.
 var entityMap = {
     '&': '&amp;',
@@ -28,6 +61,7 @@ var showInfo = function(){
     document.getElementById('info').style.display = 'block';
     document.getElementById('info-overview').style.display = 'block';
     document.getElementById('info-comments').style.display = 'none';
+    $('#crossing-tabs a[href="#overview"]').tab('show');
 };
 
 var enableCommentSubmit = function(){
@@ -37,6 +71,48 @@ var enableCommentSubmit = function(){
 var disableCommentSubmit = function(){
     // $('#comment-submit').prop('disabled', true);
 };
+
+// Submit comments.
+$('#comment-submit').click(function(e){
+    e.preventDefault();
+
+    if (!pinnedFeature){
+        console.log('Comment submit clicked, but no crossing selected!');
+        alert('Comment submit clicked, but no crossing selected!');
+        return;
+    }
+
+    if (commentText.value === ''){
+        console.log('Comment submit clicked, but no comment text.');
+        return;
+    }
+
+    var crossingId = pinnedFeature.get('crossing').id;
+
+    $.ajax('/crossings/' + crossingId + '/comment',
+           {
+               method: 'POST',
+               data: {
+                   crossingId: crossingId,
+                   text: commentText.value,
+               }
+           })
+        .done(function(){
+            // Clear comment text area.
+            var commentList = $('#comment-list'),
+                li = $('<li>').addClass('comment');
+            li.html(escapeHtml(commentText.value) +
+                    '<div class="comment-date">' +
+                    moment().fromNow() +
+                    '</div>');
+            commentList.prepend(li);
+            // Clear the comment area.
+            commentText.value = '';
+        })
+        .fail(function(){
+            alert('Error submitting comment for crossing ' + crossingId);
+        });
+});
 
 // Arrange to close the info box when its close button is clicked.
 $('#close-info-comments').click(function(){
@@ -120,15 +196,13 @@ var populateComments = function(comments){
 
     for (i = 0; i < comments.length; i++){
         comment = comments[i];
-        console.log('populateComments loop:', comment);
         li = $('<li>').addClass('comment');
         li.html(escapeHtml(comment.fields.text) +
                 '<div class="comment-date">' +
                 moment(comment.fields.lastUpdate).fromNow() +
                 '</div>');
-        commentList.append(li);
+        commentList.prepend(li);
     }
-    console.log('populateComments', comments);
 };
 
 var updateInfo = function(feature){
@@ -152,6 +226,10 @@ var updateInfo = function(feature){
             console.log('Could not find doc element with id', attr);
         }
     }
+
+    // Set the crossing name in the comments tab.
+    element = document.getElementById('crossing-name-in-comments');
+    element.innerHTML = crossing.name;
 };
 
 var handleMouseEvent = function(pixel, clicked){

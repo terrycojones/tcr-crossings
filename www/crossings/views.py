@@ -1,8 +1,10 @@
-from django.http import HttpResponse
+from django.http import (
+    HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed)
 from django.shortcuts import get_object_or_404, render
 from django.core import serializers
 
 from .models import Crossing, Comment
+from .forms import CommentForm
 
 
 def index(request):
@@ -23,3 +25,18 @@ def comments(request, crossingId):
             'json', Comment.objects.filter(
                 crossingId=crossingId).order_by('lastUpdate')),
         content_type='application/json')
+
+
+def addComment(request, crossingId):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = Comment(crossingId=form.cleaned_data['crossingId'],
+                              text=form.cleaned_data['text'])
+            comment.save()
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+    else:
+        return HttpResponseNotAllowed(['POST'])

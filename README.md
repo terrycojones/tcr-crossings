@@ -11,10 +11,10 @@ them.
 
 ### High priority
 
-* Add comment display per crossing.
-* Add backend comment addition.
-* Wire up Submit button.
-* Following commenting, add the new comment to the list.
+* <s>Add comment display per crossing.</s>
+* <s>Add backend comment addition.</s>
+* <s>Wire up Submit button.</s>
+* <s>Following commenting, add the new comment to the list.</s>
 * Add minimal / textual UI for crossings.
 * Some notes on crossings have URLs in them. Turn them into links.
 * Work on the admin interface to allow editing of comments. A downside here
@@ -23,6 +23,8 @@ them.
 
 ### Can wait a little
 
+* <s>Put comments in newest to oldest order.</s>
+* Change to use a more attractive map (MapQuest?)
 * <s>Deploy.</s>
 * Get feedback from others, especially people with different browsers or OS.
 * <s>Ask Shankie to point the subdomain at the deployed server.</s>
@@ -30,6 +32,7 @@ them.
 * Put a border around the panel that holds the Overview & Comments tabs.
 * Show admin people how to access the admin UI & make them accounts.
 * Add a comment refresh icon on the comment panel.
+* Limit the number of comments that are shown for a crossing, or add a scrollbar.
 
 ### Low priority / questionable
 
