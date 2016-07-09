@@ -2,3 +2,4 @@ www/crossings/static/crossings/crossings.json
 __pycache__
 *.pyc
 www/collected-static
+www/db.sqlite3
