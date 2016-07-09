@@ -110,20 +110,17 @@ def _update_nginx():
     """Install the updated nginx config file."""
     require('hosts', provided_by=[production])
     with settings(warn_only=True):
-        run('sudo /bin/cp /etc/nginx/sites-available/%(sitename)s '
-            '/etc/nginx/sites-available/%(sitename)s.orig' % env)
-    run('sudo /bin/cp %(path)s/resources/nginx/%(sitename)s '
-        '/etc/nginx/sites-available' % env)
-    run('test -f /etc/nginx/sites-enabled/%(sitename)s || '
-        'sudo ln -s /etc/nginx/sites-available/%(sitename)s '
-        '/etc/nginx/sites-enabled/%(sitename)s' % env)
+        run('sudo /bin/cp /etc/nginx/conf.d/%(sitename)s.conf '
+            '/etc/nginx/conf.d/%(sitename)s.conf.orig' % env)
+    run('sudo /bin/cp %(path)s/resources/nginx/%(sitename)s.conf '
+        '/etc/nginx/conf.d' % env)
 
 
 def _restart_nginx_if_config_has_changed():
     """Restart nginx if its config file has changed."""
     require('hosts', provided_by=[production])
-    run('cmp -s /etc/nginx/sites-available/%(sitename)s '
-        '/etc/nginx/sites-available/%(sitename)s.orig || '
+    run('cmp -s /etc/nginx/conf.d/%(sitename)s.conf '
+        '/etc/nginx/conf.d/%(sitename)s.conf.orig || '
         'sudo /etc/init.d/nginx restart'
         % env)
 
