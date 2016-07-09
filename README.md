@@ -1,17 +1,11 @@
 # TCR 2016 border crossings
 
-This site provides a map of the
+This repo holds the code for
+[borders.transcontinental.cc](http://borders.transcontinental.cc), a web
+site that provides a map of the
 [Transcontinental Race](http://www.transcontinental.cc/) (TCR) 2016 border
-crossings, allowing people to comment on them.
-
-## Questions
-
-* Will the site be needed once TCR 2016 is over? I.e., can I deploy it on
-  an Amazon server for the duration and then take it offline (saving all
-  the comments, of course)? Or should the site remain up?
-* Should this be deployed on Ivan's linode server?
-* Should we use `borders.transcontinental.cc`,
-  `crossings.transcontinental.cc`, or what?
+crossings, with information on each, and allowing people to comment on
+them.
 
 ## TODO
 
@@ -29,10 +23,12 @@ crossings, allowing people to comment on them.
 
 ### Can wait a little
 
-* Deploy.
+* <s>Deploy.</s>
 * Get feedback from others, especially people with different browsers or OS.
-* Ask Shankie to point the subdomain at the deployed server.
+* <s>Ask Shankie to point the subdomain at the deployed server.</s>
 * Ensure the site restarts if the host VM is rebooted.
+* Put a border around the panel that holds the Overview & Comments tabs.
+* Show admin people how to access the admin UI & make them accounts.
 
 ### Low priority / questionable
 
@@ -42,10 +38,16 @@ crossings, allowing people to comment on them.
   then mean people would have to stop adding crossing details to the Google
   docs spreadsheet. Probably better to leave this alone.
 * Add a refresh button on the comment list?
-* Add login (likely via Python social auth).
-* Restrict the ability to add a comment, to only logged in users?
+* Possibly add login (likely via Python social auth).
+* Restrict the ability to add a comment to logged-in users?
 
 ## BUGS
 
 * Does the Comments tab stay selected sometimes when it shouldn't?
 * Disabling the comment submit button disables the comment `textarea`. This may be a FF thing.
+
+## Resolved
+
+* <s>Should this be deployed on Ivan's linode server?</s> No.
+* <s>Should we use `borders.transcontinental.cc`,
+  `crossings.transcontinental.cc`, or what?</s>

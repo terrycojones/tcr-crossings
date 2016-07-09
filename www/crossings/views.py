@@ -20,5 +20,6 @@ def detail(request, crossingId):
 def comments(request, crossingId):
     return HttpResponse(
         serializers.serialize(
-            'json', Comment.objects.filter(crossingId=crossingId)),
+            'json', Comment.objects.filter(
+                crossingId=crossingId).order_by('lastUpdate')),
         content_type='application/json')

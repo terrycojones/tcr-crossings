@@ -98,6 +98,16 @@ if (commentText.addEventListener) {
 
 
 var populateComments = function(comments){
+    var i, comment, li;
+    var commentList = $('#comment-list');
+
+    for (i = 0; i < comments.length; i++){
+        comment = comments[i];
+        console.log('populateComments loop:', comment);
+        li = $('<li>').addClass('comment');
+        li.text(comment.fields.text);
+        commentList.append(li);
+    }
     console.log('populateComments', comments);
 };
 
