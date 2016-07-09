@@ -2,6 +2,22 @@ var map,
     pinnedFeature = null,
     commentText = document.getElementById('comment-text');
 
+// From mustache.
+var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '/': '&#x2F;'
+  };
+
+var escapeHtml = function (string){
+    return String(string).replace(/[&<>"'\/]/g, function (s){
+      return entityMap[s];
+    });
+};
+
 var hideInfo = function(){
     document.getElementById('info').style.display = 'none';
     document.getElementById('info-overview').style.display = 'none';
@@ -100,12 +116,16 @@ if (commentText.addEventListener) {
 var populateComments = function(comments){
     var i, comment, li;
     var commentList = $('#comment-list');
+    commentList.children().remove();
 
     for (i = 0; i < comments.length; i++){
         comment = comments[i];
         console.log('populateComments loop:', comment);
         li = $('<li>').addClass('comment');
-        li.text(comment.fields.text);
+        li.html(escapeHtml(comment.fields.text) +
+                '<div class="comment-date">' +
+                moment(comment.fields.lastUpdate).fromNow() +
+                '</div>');
         commentList.append(li);
     }
     console.log('populateComments', comments);

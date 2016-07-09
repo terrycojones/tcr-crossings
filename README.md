@@ -29,6 +29,7 @@ them.
 * Ensure the site restarts if the host VM is rebooted.
 * Put a border around the panel that holds the Overview & Comments tabs.
 * Show admin people how to access the admin UI & make them accounts.
+* Add a comment refresh icon on the comment panel.
 
 ### Low priority / questionable
 
