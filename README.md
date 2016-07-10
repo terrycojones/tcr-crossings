@@ -7,6 +7,11 @@ site that provides a map of the
 crossings, with information on each, and allowing people to comment on
 them.
 
+## QUESTIONS
+
+* Is it always the case that `Country 2` in the spreadsheet is the country
+  the ride will be in, heading into `Country 1`?
+
 ## TODO
 
 ### High priority
