@@ -335,13 +335,12 @@ var addCrossings = function(data){
     });
 
     var rasterLayer = new ol.layer.Tile({
-        // ol.source.MapQuest() looks better but doesn't work, as ol.js
-        // references an unknown variable (c).
-        source: new ol.source.OSM()
+        // Vanilla OSM (next line) doesn't look as good (to me) as MapQuest.
+        // source: new ol.source.OSM()
+        source: new ol.source.MapQuest({layer: 'osm'})
     });
 
     /*
-
     // Mapbox!
     var rasterLayer = new ol.layer.Tile({
         source: new ol.source.TileJSON({

@@ -24,7 +24,7 @@ them.
 ### Can wait a little
 
 * <s>Put comments in newest to oldest order.</s>
-* Change to use a more attractive map (MapQuest?)
+* <s>Change to use a more attractive map (MapQuest?)</s>
 * <s>Deploy.</s>
 * Get feedback from others, especially people with different browsers or OS.
 * <s>Ask Shankie to point the subdomain at the deployed server.</s>
