@@ -40,18 +40,20 @@ class Country(object):
 class Crossing(models.Model):
     active = models.NullBooleanField('active?', blank=True)
     bicycleCrossing = models.NullBooleanField('bicycle crossing', blank=True)
-    country1 = models.CharField('country 1', max_length=2,
-                                choices=Country.CHOICES)
-    country2 = models.CharField('country 2', max_length=2,
-                                choices=Country.CHOICES)
+    countryTo = models.CharField('country entering', max_length=2,
+                                 choices=Country.CHOICES)
+    countryFrom = models.CharField('country leaving', max_length=2,
+                                   choices=Country.CHOICES)
+    countryToPlace = models.CharField('city/town in country being entered',
+                                      max_length=200, blank=True,
+                                      null=True)
+    countryFromPlace = models.CharField('city/town in country being left',
+                                        max_length=200, blank=True,
+                                        null=True)
     crossingType = models.CharField('type', max_length=200, blank=True)
     lastEditBy = models.CharField('last edit by', max_length=200, blank=True)
     lastUpdate = models.DateTimeField('last update', auto_now=True)
     latitude = models.FloatField(blank=True, null=True)
-    location1 = models.CharField('location 1', max_length=200, blank=True,
-                                 null=True)
-    location2 = models.CharField('location 2', max_length=200, blank=True,
-                                 null=True)
     longitude = models.FloatField(blank=True, null=True)
     name = models.CharField(max_length=200, unique=True)
     notes = models.CharField(max_length=4000, blank=True)

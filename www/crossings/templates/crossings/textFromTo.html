@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Site for finding and contributing information about TCR 2016 border crossings">
+    <title>TCR 2016 border crossings</title>
+  </head>
+
+  <body>
+
+    <h1>Crossings from {{ countryFrom }} to {{ countryTo }}</h1>
+    <p>Which crossing will you take?</p>
+    <ul>
+      {% for crossing in crossings %}
+      <li><a href="/text/{{ countryFrom }}/{{ countryTo }}/{{ crossing.name }}">{{ crossing.name }}</a>
+        ({{ crossing.countryFromPlace }} &rarr; {{ crossing.countryToPlace }})</li>
+      {% endfor %}
+    </ul>
+    
+  </body>
+</html>

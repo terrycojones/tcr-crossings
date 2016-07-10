@@ -215,7 +215,7 @@ var updateInfo = function(feature){
 
     var crossing = feature.get('crossing');
     var attrs = [
-        'name', 'country1', 'country2', 'country1Place', 'country2Place',
+        'name', 'countryFrom', 'countryTo', 'countryFromPlace', 'countryToPlace',
         'active', 'bikeCrossing', 'crossingType', 'hours', 'latitude',
         'longitude', 'notes', 'otherNames', 'tcr4Survey'
     ];

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Site for finding and contributing information about TCR 2016 border crossings">
+    <title>TCR 2016 border crossings</title>
+  </head>
+
+  <body>
+
+    {% if countryPairs %}
+    <p>Which countries are you moving between?</p>
+    <ul>
+      {% for pair in countryPairs %}
+      <li><a href="/text/{{ pair.countryFrom }}/{{ pair.countryTo }}">
+          {{ pair.countryFrom }} &rarr; {{ pair.countryTo }}</a>
+          ({{ pair.count }} crossings)
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>Oops! No country pairs are available. This is definitely an error.</p>
+    {% endif %}
+    
+  </body>
+</html>

@@ -20,7 +20,7 @@ them.
 * <s>Add backend comment addition.</s>
 * <s>Wire up Submit button.</s>
 * <s>Following commenting, add the new comment to the list.</s>
-* Add minimal / textual UI for crossings.
+* <s>Add minimal / textual UI for crossings.</s>
 * Some notes on crossings have URLs in them. Turn them into links.
 * Work on the admin interface to allow editing of comments. A downside here
   is that you currently need to know the id of the crossing you want to
@@ -36,12 +36,11 @@ them.
 * Ensure the site restarts if the host VM is rebooted.
 * Put a border around the panel that holds the Overview & Comments tabs.
 * Show admin people how to access the admin UI & make them accounts.
-* Add a comment refresh icon on the comment panel.
 * Limit the number of comments that are shown for a crossing, or add a scrollbar.
 
 ### Low priority / questionable
 
-* Add name tooltips to the crossing markers.
+* Add name tooltips to the crossing markers?
 * Add an icon that when tapped zooms the map to show where you are.
 * Get full list of crossings into app and store it into sqlite? This would
   then mean people would have to stop adding crossing details to the Google
@@ -52,7 +51,7 @@ them.
 
 ## BUGS
 
-* Does the Comments tab stay selected sometimes when it shouldn't?
+* <s>Does the Comments tab stay selected sometimes when it shouldn't?</s>
 * Disabling the comment submit button disables the comment `textarea`. This may be a FF thing.
 
 ## Resolved

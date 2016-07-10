@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Site for finding and contributing information about TCR 2016 border crossings">
+    <title>TCR 2016 border crossings</title>
+
+    <style>
+      table {border: 1px solid #aaa;}
+    </style>
+  </head>
+
+  <body>
+
+    <h1>Crossing name: {{ crossing.name }}</h1>
+
+    <p>from <span id="crossing-countryFromPlace">{{ crossing.countryFromPlace }}</span>
+      (<span id="crossing-countryFrom">{{ crossing.countryFrom }}</span>)<br/>
+      into <span id="crossing-countryToPlace">{{ crossing.countryToPlace }}</span>
+      (<span id="crossing-countryTo">{{ crossing.countryTo }}</span>)
+    </p>
+
+    <table>
+      <tbody>
+        <tr>
+          <td>Active?</td>
+          <td><span id="crossing-active">{{ crossing.active }}</span></td>
+        </tr>
+        <tr>
+          <td>Bike crossing?</td>
+          <td><span id="crossing-bikeCrossing">{{ crossing.bikeCrossing }}</span></td>
+        </tr>
+        <tr>
+          <td>Crossing type:</td>
+          <td><span id="crossing-crossingType">{{ crossing.crossingType }}</span></td>
+        </tr>
+        <tr>
+          <td>Hours:</td>
+          <td><span id="crossing-hours">{{ crossing.hours }}</span></td>
+        </tr>
+        <tr>
+          <td>Latitude:</td>
+          <td><span id="crossing-latitude">{{ crossing.latitude }}</span></td>
+        </tr>
+        <tr>
+          <td>Longitude:</td>
+          <td><span id="crossing-longitude">{{ crossing.longitude }}</span></td>
+        </tr>
+        <tr>
+          <td>Notes:</td>
+          <td><span id="crossing-notes">{{ crossing.notes }}</span></td>
+        </tr>
+        {% if crossing.otherNames %}
+        <tr>
+          <td>Other name{{ crossing.otherNames|pluralize }}:</td>
+          <td><span id="crossing-otherNames">{{ crossing.otherNames|join:"x" }}</span></td>
+        </tr>
+        {% endif %}
+        <tr>
+          <td>TCR4 survey?</td>
+          <td><span id="crossing-tcr4Survey">{{ crossing.tcr4Survey }}</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </body>
+</html>
