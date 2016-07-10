@@ -59,9 +59,19 @@ var hideInfo = function(){
 
 var showInfo = function(){
     document.getElementById('info').style.display = 'block';
+    showOverviewTab();
+};
+
+var showOverviewTab = function(){
+    $('#crossing-tabs a[href="#overview"]').tab('show');
     document.getElementById('info-overview').style.display = 'block';
     document.getElementById('info-comments').style.display = 'none';
-    $('#crossing-tabs a[href="#overview"]').tab('show');
+};
+
+var showCommentsTab = function(){
+    $('#crossing-tabs a[href="#comments"]').tab('show');
+    document.getElementById('info-overview').style.display = 'none';
+    document.getElementById('info-comments').style.display = 'block';
 };
 
 var enableCommentSubmit = function(){
@@ -128,18 +138,14 @@ $('#close-info-overview').click(function(){
 // Handle clicks on the Overview tab.
 $('#crossing-tabs a[href="#overview"]').click(function (e) {
     e.preventDefault();
-    $(this).tab('show');
-    document.getElementById('info-overview').style.display = 'block';
-    document.getElementById('info-comments').style.display = 'none';
+    showOverviewTab();
 })
 
 
 // Handle clicks on the Comments tab.
 $('#crossing-tabs a[href="#comments"]').click(function (e) {
     e.preventDefault();
-    $(this).tab('show');
-    document.getElementById('info-overview').style.display = 'none';
-    document.getElementById('info-comments').style.display = 'block';
+    showCommentsTab();
 
     if (!pinnedFeature){
         console.log('Comments tab clicked, but no crossing selected!');
@@ -226,6 +232,9 @@ var updateInfo = function(feature){
             console.log('Could not find doc element with id', attr);
         }
     }
+
+    // Show the Overview tab.
+    showOverviewTab();
 
     // Set the crossing name in the comments tab.
     element = document.getElementById('crossing-name-in-comments');
