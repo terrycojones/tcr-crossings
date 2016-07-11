@@ -2,6 +2,14 @@ var map,
     pinnedFeature = null,
     commentText = document.getElementById('comment-text');
 
+// Set map height manually on window resize.
+$(window).resize(function () {
+    var h = $(window).height(),
+        offsetTop = 50;  // Navbar height.
+
+    $('#map').css('height', (h - offsetTop));
+}).resize();
+
 // Below CSRF stuff from https://docs.djangoproject.com/en/1.9/ref/csrf/
 function getCookie(name) {
     var cookieValue = null;

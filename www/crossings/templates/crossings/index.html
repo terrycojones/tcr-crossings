@@ -46,7 +46,7 @@
     <![endif]-->
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
+      <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                   data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -69,99 +69,101 @@
     </nav>
 
     <div class="container-fluid">
-      <div class="map" id="map"></div>
+      <div class="row">
+        <div class="full-map" id="map"></div>
 
-      <div id="info">
-        <ul class="nav nav-tabs" id="crossing-tabs">
-          <li role="presentation" class="active"><a href="#overview">Overview</a></li>
-          <li role="presentation"><a href="#comments">Comments</a></li>
-        </ul>
+        <div id="info">
+          <ul class="nav nav-tabs" id="crossing-tabs">
+            <li role="presentation" class="active"><a href="#overview">Overview</a></li>
+            <li role="presentation"><a href="#comments">Comments</a></li>
+          </ul>
 
-        <!-- Overview - contents of first tab. -->
-        <div class="panel panel-default" id="info-overview">
-          <!-- Default panel contents -->
-          <div class="panel-heading">
-            <span id="crossing-name" class="info-panel-heading">xxx</span>
+          <!-- Overview - contents of first tab. -->
+          <div class="panel panel-default" id="info-overview">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+              <span id="crossing-name" class="info-panel-heading">xxx</span>
 
-            <!-- Close button -->
-            <button type="button" class="close" id="close-info-overview"
-                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <!-- Close button -->
+              <button type="button" class="close" id="close-info-overview"
+                      aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-            <br/>
+              <br/>
 
-            Crossing from <span id="crossing-countryFromPlace">xxx</span> (<span id="crossing-countryFrom">xxx</span>)<br/>
-            into <span id="crossing-countryToPlace">xxx</span> (<span id="crossing-countryTo">xxx</span>)
-          </div><!-- Overview panel heading -->
+              Crossing from <span id="crossing-countryFromPlace">xxx</span> (<span id="crossing-countryFrom">xxx</span>)<br/>
+              into <span id="crossing-countryToPlace">xxx</span> (<span id="crossing-countryTo">xxx</span>)
+            </div><!-- Overview panel heading -->
 
-          <!-- Overview table -->
-          <table class="table">
-            <tbody>
-              <tr>
-                <td>Active?</td>
-                <td><span id="crossing-active">xxx</span></td>
-              </tr>
-              <tr>
-                <td>Bike crossing?</td>
-                <td><span id="crossing-bikeCrossing">xxx</span></td>
-              </tr>
-              <tr>
-                <td>Crossing type:</td>
-                <td><span id="crossing-crossingType">xxx</span></td>
-              </tr>
-              <tr>
-                <td>Hours:</td>
-                <td><span id="crossing-hours">xxx</span></td>
-              </tr>
-              <tr>
-                <td>Latitude:</td>
-                <td><span id="crossing-latitude">xxx</span></td>
-              </tr>
-              <tr>
-                <td>Longitude:</td>
-                <td><span id="crossing-longitude">xxx</span></td>
-              </tr>
-              <tr>
-                <td>Notes:</td>
-                <td><span id="crossing-notes">xxx</span></td>
-              </tr>
-              <tr>
-                <td>Other names:</td>
-                <td><span id="crossing-otherNames">xxx</span></td>
-              </tr>
-              <tr>
-                <td>TCR4 survey?</td>
-                <td><span id="crossing-tcr4Survey">xxx</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div><!-- Overview panel -->
+            <!-- Overview table -->
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Active?</td>
+                  <td><span id="crossing-active">xxx</span></td>
+                </tr>
+                <tr>
+                  <td>Bike crossing?</td>
+                  <td><span id="crossing-bikeCrossing">xxx</span></td>
+                </tr>
+                <tr>
+                  <td>Crossing type:</td>
+                  <td><span id="crossing-crossingType">xxx</span></td>
+                </tr>
+                <tr>
+                  <td>Hours:</td>
+                  <td><span id="crossing-hours">xxx</span></td>
+                </tr>
+                <tr>
+                  <td>Latitude:</td>
+                  <td><span id="crossing-latitude">xxx</span></td>
+                </tr>
+                <tr>
+                  <td>Longitude:</td>
+                  <td><span id="crossing-longitude">xxx</span></td>
+                </tr>
+                <tr>
+                  <td>Notes:</td>
+                  <td><span id="crossing-notes">xxx</span></td>
+                </tr>
+                <tr>
+                  <td>Other names:</td>
+                  <td><span id="crossing-otherNames">xxx</span></td>
+                </tr>
+                <tr>
+                  <td>TCR4 survey?</td>
+                  <td><span id="crossing-tcr4Survey">xxx</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- Overview panel -->
 
-        <div class="panel panel-default" id="info-comments">
-          <!-- Default panel contents -->
-          <div class="panel-heading">
-            <span class="info-panel-heading"><span id="crossing-name-in-comments">xxx</span> comments</span>
+          <div class="panel panel-default" id="info-comments">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+              <span class="info-panel-heading"><span id="crossing-name-in-comments">xxx</span> comments</span>
 
-            <!-- Close button -->
-            <button type="button" class="close" id="close-info-comments"
-                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <!-- Close button -->
+              <button type="button" class="close" id="close-info-comments"
+                      aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-            <br/>
+              <br/>
 
-            <!-- Existing comments. -->
-            <ul id="comment-list" class="list-unstyled"></ul>
+              <!-- Existing comments. -->
+              <ul id="comment-list" class="list-unstyled"></ul>
 
-            <!-- Comment box -->
-            <form>
-              {% csrf_token %}
-              <textarea placeholder="Add a comment..." rows="2" wrap="soft"
-                        class="form-control" maxlength="4000" id="comment-text"></textarea>
-              <button type="submit" class="btn btn-default" id="comment-submit">Submit</button>
-            </form>
+              <!-- Comment box -->
+              <form>
+                {% csrf_token %}
+                <textarea placeholder="Add a comment..." rows="2" wrap="soft"
+                          class="form-control" maxlength="4000" id="comment-text"></textarea>
+                <button type="submit" class="btn btn-default" id="comment-submit">Submit</button>
+              </form>
 
-          </div><!-- Comments panel heading -->
-        </div><!-- Comments panel -->
+            </div><!-- Comments panel heading -->
+          </div><!-- Comments panel -->
 
-      </div><!-- info -->
+        </div><!-- info -->
+      </div><!-- row -->
     </div><!-- container-fluid -->
 
     <!-- About modal -->

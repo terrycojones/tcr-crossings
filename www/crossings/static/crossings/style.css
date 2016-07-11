@@ -1,9 +1,8 @@
 body {
-  /* padding-top: 50px; */
+    padding-top: 50px;
 }
 
 #map {
-    padding-top: 50px;
     height: 100%;
     width: 100%;
 }
@@ -12,8 +11,8 @@ body {
     display: none;
     position: fixed;
     top: 57px;
-    left: 50px;
-    width: 320px;
+    left: 41px;
+    width: 300px;
 }
 
 #info-overview {
