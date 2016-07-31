@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 
 
 class Country(object):
@@ -56,6 +57,7 @@ COUNTRY_NAME = {
 }
 
 
+@python_2_unicode_compatible
 class Crossing(models.Model):
     active = models.NullBooleanField('active?', blank=True)
     bicycleCrossing = models.NullBooleanField('bicycle crossing', blank=True)
@@ -86,6 +88,7 @@ class Crossing(models.Model):
         return self.name
 
 
+@python_2_unicode_compatible
 class Comment(models.Model):
     crossing = models.ForeignKey(Crossing, on_delete=models.CASCADE)
     # Note that the max_length below should be the same as we use in
