@@ -22,9 +22,9 @@ them.
 * <s>Following commenting, add the new comment to the list.</s>
 * <s>Add minimal / textual UI for crossings.</s>
 * Some notes on crossings have URLs in them. Turn them into links.
-* Work on the admin interface to allow editing of comments. A downside here
+* <s>Work on the admin interface to allow editing of comments. A downside here
   is that you currently need to know the id of the crossing you want to
-  examine comments for. That's because the crossings are not in the db.
+  examine comments for. That's because the crossings are not in the db.</s>
 
 ### Can wait a little
 
@@ -42,9 +42,9 @@ them.
 
 * Add name tooltips to the crossing markers?
 * Add an icon that when tapped zooms the map to show where you are.
-* Get full list of crossings into app and store it into sqlite? This would
+* <s>Get full list of crossings into app and store it into sqlite? This would
   then mean people would have to stop adding crossing details to the Google
-  docs spreadsheet. Probably better to leave this alone.
+  docs spreadsheet. Probably better to leave this alone.</s>
 * Add a refresh button on the comment list?
 * Possibly add login (likely via Python social auth).
 * Restrict the ability to add a comment to logged-in users?
