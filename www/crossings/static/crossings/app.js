@@ -325,7 +325,6 @@ var handleMouseEvent = function(pixel, clicked){
 };
 
 var addCrossings = function(crossings){
-    // console.log(crossings);
     var i, features = [];
 
     for (i = 0; i < crossings.length; i++){
@@ -372,15 +371,8 @@ var addCrossings = function(crossings){
         source: vectorSource
     });
 
-    var rasterLayer = new ol.layer.Tile({
-        // Vanilla OSM doesn't look as good (to me) as MapQuest.
-        // source: new ol.source.MapQuest({layer: 'osm'})
-        // but MapQuest just changed (July 12 2016) to be non-free!
-        source: new ol.source.OSM()
-    });
-
     /*
-    // Mapbox!
+    // Mapbox silly old-fashioned map.
     var rasterLayer = new ol.layer.Tile({
         source: new ol.source.TileJSON({
             url: 'http://api.tiles.mapbox.com/v3/mapbox.geography-class.json',
@@ -388,6 +380,28 @@ var addCrossings = function(crossings){
         })
     });
     */
+
+    /*
+    This is the originally deployed (ugly) OSM site:
+
+    var rasterLayer = new ol.layer.Tile({
+        // Vanilla OSM doesn't look as good (to me) as MapQuest.
+        // source: new ol.source.MapQuest({layer: 'osm'})
+        // but MapQuest just changed (July 12 2016) to be non-free!
+        source: new ol.source.OSM()
+    });
+    */
+
+    var mapboxToken = 'pk.eyJ1IjoidGVycnljb2pvbmVzIiwiYSI6ImNpcjl4ZnllZzAwNGNpZmx3YmY3dXVxNGIifQ.4ybBGHp3Zoqs-5I-tqXxJw';
+    var rasterLayer = new ol.layer.Tile({
+        source: new ol.source.XYZ({
+            tileSize: [512, 512],
+            // I tried outdoors-v9 but the map does not display initially, it's necessary to zoom.
+            // I don't know why. But streets-v9 works fine.
+            url: ('https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/{z}/{x}/{y}?access_token=' +
+                  mapboxToken)
+        })
+    });
 
     map = new ol.Map({
         target: 'map',
