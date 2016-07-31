@@ -85,3 +85,22 @@ initially used to collect crossing information.
 $ cd www
 $ python manage.py import_crossings --csv ../data/crossings.csv
 ```
+
+# Running the server
+
+The site is currently running in a `screen` session named `1726.borders`.
+This is obviously not ideal! I put an upstart script in
+`/etc/init/borders.transcontinental.cc.conf` but for some reason it spawns
+a ton of `uwsgi` processes. So for now I use
+
+```sh
+$ /home/terry/.virtualenvs/borders/bin/uwsgi     --die-on-term     --chdir=/opt/borders/borders.transcontinental.cc/www     --module=server.wsgi:application     --env DJANGO_SETTINGS_MODULE=server.settings     --master     --pidfile=/run/uwsgi.pid     --socket=/opt/borders/server.sock     --processes=5     --uid=1004 --gid=1004     --harakiri=20     --max-requests=5000     --vacuum     --home=/home/terry/.virtualenvs/borders     --daemonize=/var/log/uwsgi/borders.log
+```
+
+in the screen session.
+
+You can stop the server via:
+
+```sh
+$ killall uwsgi
+```
