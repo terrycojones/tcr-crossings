@@ -17,7 +17,7 @@
       {% for pair in countryPairs %}
       <li><a href="/text/{{ pair.countryFrom }}/{{ pair.countryTo }}">
           {{ pair.countryFromDisplay }} &rarr; {{ pair.countryToDisplay }}</a>
-          ({{ pair.count }} crossings)
+          ({{ pair.count }} crossing{{ pair.count|pluralize }})
       </li>
       {% endfor %}
     </ul>
