@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Crossing, Comment
+from .models import Crossing, Comment, COUNTRY_NAME
 from .forms import CommentForm
 
 
@@ -71,7 +71,9 @@ def text(request):
     for countryFrom, countryTo in sorted(countryPairs):
         context.append({
             'countryFrom': countryFrom,
+            'countryFromDisplay': COUNTRY_NAME[countryFrom],
             'countryTo': countryTo,
+            'countryToDisplay': COUNTRY_NAME[countryTo],
             'count': countryPairs[(countryFrom, countryTo)],
         })
 
@@ -91,7 +93,9 @@ def textFromTo(request, countryFrom, countryTo):
 
     context = {
         'countryFrom': countryFrom,
+        'countryFromDisplay': COUNTRY_NAME[countryFrom],
         'countryTo': countryTo,
+        'countryToDisplay': COUNTRY_NAME[countryTo],
         'crossings': crossings,
     }
     return render(request, 'crossings/textFromTo.html', context)
@@ -109,5 +113,10 @@ def textCrossing(request, countryFrom, countryTo, name):
     except ObjectDoesNotExist:
         return HttpResponseNotFound()
 
-    return render(request, 'crossings/textCrossing.html',
-                  {'crossing': crossing})
+    context = {
+        'countryFromDisplay': COUNTRY_NAME[countryFrom],
+        'countryToDisplay': COUNTRY_NAME[countryTo],
+        'crossing': crossing,
+    }
+
+    return render(request, 'crossings/textCrossing.html', context)

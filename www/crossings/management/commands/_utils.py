@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 def dmsToFloat(s):
     """
     Convert a degrees, minutes & seconds string to a float value.

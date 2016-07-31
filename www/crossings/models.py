@@ -37,6 +37,25 @@ class Country(object):
         (TURKEY, 'Turkey'))
 
 
+COUNTRY_NAME = {
+    'AL': 'Albania',
+    'AU': 'Austria',
+    'BH': 'Bosnia Herzegovina',
+    'BU': 'Bulgaria',
+    'CR': 'Croatia',
+    'GR': 'Greece',
+    'HU': 'Hungary',
+    'IT': 'Italy',
+    'KO': 'Kosovo',
+    'MA': 'Macedonia',
+    'MO': 'Montenegro',
+    'RO': 'Romania',
+    'SE': 'Serbia',
+    'SL': 'Slovenia',
+    'TU': 'Turkey',
+}
+
+
 class Crossing(models.Model):
     active = models.NullBooleanField('active?', blank=True)
     bicycleCrossing = models.NullBooleanField('bicycle crossing', blank=True)
