@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^crossings/(?P<crossingId>[0-9]+)/comment$', views.addComment,
         name='add comment'),
     url(r'^crossings/(?P<crossingId>[0-9]+)/$', views.detail, name='detail'),
+    url(r'^crossings/$', views.allCrossings, name='all'),
     url(r'^text/$', views.text, name='text'),
     url(r'^text/(?P<countryFrom>[^/]+)/(?P<countryTo>[^/]+)$',
         views.textFromTo, name='text from to'),

@@ -1,5 +1,3 @@
-from json import load
-from os.path import join, dirname
 from collections import Counter
 
 from django.http import (
@@ -7,33 +5,42 @@ from django.http import (
     HttpResponseNotFound)
 from django.shortcuts import get_object_or_404, render
 from django.core import serializers
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Crossing, Comment
 from .forms import CommentForm
 
-_crossings = None
+
+def goodCrossings():
+    return Crossing.objects.filter(active=True).exclude(
+        latitude=-1.0).exclude(longitude=-1.0)
 
 
 def index(request):
-    # crossings_list = Crossing.objects.order_by('name')[:5]
-    # context = {'crossings_list': crossings_list}
     context = {}
     return render(request, 'crossings/index.html', context)
 
 
 def detail(request, crossingId):
-    """
-    Currently unused.
-    """
     crossing = get_object_or_404(Crossing, pk=crossingId)
     return render(request, 'crossings/detail.html', {'crossing': crossing})
+
+
+def allCrossings(request):
+    """
+    Get all crossings, in JSON.
+    """
+    return HttpResponse(
+        serializers.serialize(
+            'json', goodCrossings()),
+        content_type='application/json')
 
 
 def comments(request, crossingId):
     return HttpResponse(
         serializers.serialize(
             'json', Comment.objects.filter(
-                crossingId=crossingId).order_by('lastUpdate')),
+                crossing_id=crossingId).order_by('lastUpdate')),
         content_type='application/json')
 
 
@@ -42,7 +49,7 @@ def addComment(request, crossingId):
         form = CommentForm(request.POST)
 
         if form.is_valid():
-            comment = Comment(crossingId=form.cleaned_data['crossingId'],
+            comment = Comment(crossing_id=int(form.cleaned_data['crossingId']),
                               text=form.cleaned_data['text'])
             comment.save()
             return HttpResponse()
@@ -52,24 +59,13 @@ def addComment(request, crossingId):
         return HttpResponseNotAllowed(['POST'])
 
 
-def _initCrossings():
-    global _crossings
-    if _crossings is None:
-        from . import models
-        crossingFile = join(dirname(models.__file__), 'static', 'crossings',
-                            'crossings.json')
-        with open(crossingFile) as fp:
-            _crossings = load(fp)
-
-
 def text(request):
     """
     Render a simple textual listing of from/to countries.
     """
-    _initCrossings()
     countryPairs = Counter()
-    for crossing in _crossings['crossings']:
-        countryPairs[(crossing['countryFrom'], crossing['countryTo'])] += 1
+    for crossing in goodCrossings():
+        countryPairs[(crossing.countryFrom, crossing.countryTo)] += 1
 
     context = []
     for countryFrom, countryTo in sorted(countryPairs):
@@ -87,12 +83,10 @@ def textFromTo(request, countryFrom, countryTo):
     Render a simple textual listing of border crossings between countryFrom
     and countryTo.
     """
-    _initCrossings()
-
     crossings = []
-    for crossing in _crossings['crossings']:
-        if (crossing['countryFrom'] == countryFrom and
-                crossing['countryTo'] == countryTo):
+    for crossing in goodCrossings():
+        if (crossing.countryFrom == countryFrom and
+                crossing.countryTo == countryTo):
             crossings.append(crossing)
 
     context = {
@@ -108,14 +102,11 @@ def textCrossing(request, countryFrom, countryTo, name):
     Render a simple textual listing of border crossings between countryFrom
     and countryTo.
     """
-    _initCrossings()
-
-    for crossing in _crossings['crossings']:
-        if (crossing['countryFrom'] == countryFrom and
-                crossing['countryTo'] == countryTo and
-                crossing['name'] == name):
-            break
-    else:
+    try:
+        crossing = goodCrossings().get(countryFrom=countryFrom,
+                                       countryTo=countryTo,
+                                       name=name)
+    except ObjectDoesNotExist:
         return HttpResponseNotFound()
 
     return render(request, 'crossings/textCrossing.html',

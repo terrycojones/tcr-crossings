@@ -59,3 +59,29 @@ them.
 * <s>Should this be deployed on Ivan's linode server?</s> No.
 * <s>Should we use `borders.transcontinental.cc`,
   `crossings.transcontinental.cc`, or what?</s>
+
+# Setting up the Django database
+
+To create Django's `sqlite` database, which is stored in `www/db.sqlite3`:
+
+```sh
+$ cd www
+$ python manage.py migrate
+$ python manage.py makemigrations crossings
+$ python manage.py migrate
+```
+
+## Importing all crossing data
+
+Data from `data/crossings.csv` is imported into the `Crossing` model as
+follows.
+
+**NOTE:** the following command will remove *all* existing crossings!
+All comments will be removed too as a side effect. This command should only
+be run once, to import data from the shared Google spreadsheet that was
+initially used to collect crossing information.
+
+```sh
+$ cd www
+$ python manage.py import_crossings --csv ../data/crossings.csv
+```

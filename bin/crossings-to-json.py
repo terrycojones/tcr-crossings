@@ -107,6 +107,11 @@ def main():
                 raise ValueError('Unknown country %r found on line %d' %
                                  (country, lineNumber))
 
+        if active.lower() != 'yes':
+            print('Skipped record %d due to inactive (value %r).' %
+                  (lineNumber, active), file=sys.stderr)
+            continue
+
         data.append({
             'active': active,
             'bikeCrossing': bikeCrossing,

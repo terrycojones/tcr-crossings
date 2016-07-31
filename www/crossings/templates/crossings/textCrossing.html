@@ -26,16 +26,12 @@
     <table>
       <tbody>
         <tr>
-          <td>Active?</td>
-          <td><span id="crossing-active">{{ crossing.active }}</span></td>
+          <td>Crossing type:</td>
+          <td><span id="crossing-crossingType">{{ crossing.crossingType }}</span></td>
         </tr>
         <tr>
           <td>Bike crossing?</td>
           <td><span id="crossing-bikeCrossing">{{ crossing.bikeCrossing }}</span></td>
-        </tr>
-        <tr>
-          <td>Crossing type:</td>
-          <td><span id="crossing-crossingType">{{ crossing.crossingType }}</span></td>
         </tr>
         <tr>
           <td>Hours:</td>
@@ -50,18 +46,12 @@
           <td><span id="crossing-longitude">{{ crossing.longitude }}</span></td>
         </tr>
         <tr>
+          <td>Other names:</td>
+          <td><span id="crossing-otherNames">{{ crossing.otherNames }}</span></td>
+        </tr>
+        <tr>
           <td>Notes:</td>
           <td><span id="crossing-notes">{{ crossing.notes }}</span></td>
-        </tr>
-        {% if crossing.otherNames %}
-        <tr>
-          <td>Other name{{ crossing.otherNames|pluralize }}:</td>
-          <td><span id="crossing-otherNames">{{ crossing.otherNames|join:"x" }}</span></td>
-        </tr>
-        {% endif %}
-        <tr>
-          <td>TCR4 survey?</td>
-          <td><span id="crossing-tcr4Survey">{{ crossing.tcr4Survey }}</span></td>
         </tr>
       </tbody>
     </table>

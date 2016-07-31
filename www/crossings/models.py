@@ -55,12 +55,11 @@ class Crossing(models.Model):
     lastUpdate = models.DateTimeField('last update', auto_now=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
-    name = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=200)
     notes = models.CharField(max_length=4000, blank=True)
     openingHours = models.CharField('opening hours', max_length=200,
                                     blank=True)
     otherNames = models.CharField('other names', max_length=2000, blank=True)
-    status = models.TextField(blank=True)
     tcr4Survey = models.NullBooleanField('TCR4 survey?', blank=True)
     underEditBy = models.CharField('under edit by', max_length=200, blank=True)
 
@@ -69,8 +68,7 @@ class Crossing(models.Model):
 
 
 class Comment(models.Model):
-    # crossing = models.ForeignKey(Crossing, on_delete=models.CASCADE)
-    crossingId = models.IntegerField()
+    crossing = models.ForeignKey(Crossing, on_delete=models.CASCADE)
     # Note that the max_length below should be the same as we use in
     # www/crossings/templates/crossings/index.html
     text = models.CharField(max_length=4000)

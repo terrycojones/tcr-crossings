@@ -2,6 +2,24 @@ var map,
     pinnedFeature = null,
     commentText = document.getElementById('comment-text');
 
+var COUNTRY_NAME = {
+    'AL': 'Albania',
+    'AU': 'Austria',
+    'BH': 'Bosnia Herzegovina',
+    'BU': 'Bulgaria',
+    'CR': 'Croatia',
+    'GR': 'Greece',
+    'HU': 'Hungary',
+    'IT': 'Italy',
+    'KO': 'Kosovo',
+    'MA': 'Macedonia',
+    'MO': 'Montenegro',
+    'RO': 'Romania',
+    'SE': 'Serbia',
+    'SL': 'Slovenia',
+    'TU': 'Turkey',
+};
+
 // Set map height manually on window resize.
 $(window).resize(function () {
     var h = $(window).height(),
@@ -224,17 +242,23 @@ var updateInfo = function(feature){
     var crossing = feature.get('crossing');
     var attrs = [
         'name', 'countryFrom', 'countryTo', 'countryFromPlace', 'countryToPlace',
-        'active', 'bikeCrossing', 'crossingType', 'hours', 'latitude',
-        'longitude', 'notes', 'otherNames', 'tcr4Survey'
+        'bikeCrossing', 'crossingType', 'hours', 'latitude', 'longitude', 'notes',
+        'otherNames'
     ];
-    var i, element, attr;
+    var i, element, attr, value;
 
     for (i = 0; i < attrs.length; i++){
 
         attr = attrs[i];
         element = document.getElementById('crossing-' + attr);
         if (element){
-            element.innerHTML = crossing[attr];
+            value = crossing[attr];
+            if (value){
+                element.innerHTML = value;
+            }
+            else {
+                element.innerHTML = '';
+            }
         }
         else {
             console.log('Could not find doc element with id', attr);
@@ -300,13 +324,12 @@ var handleMouseEvent = function(pixel, clicked){
     }
 };
 
-var addCrossings = function(data){
-    var crossings = data.crossings;
-    var i;
-    var features = [];
+var addCrossings = function(crossings){
+    // console.log(crossings);
+    var i, features = [];
 
     for (i = 0; i < crossings.length; i++){
-        var crossing = crossings[i];
+        var crossing = crossings[i].fields;
         var width = 5;
         var white = [255, 255, 255, 1];
         var blue = [0, 153, 255, 1];
@@ -314,6 +337,13 @@ var addCrossings = function(data){
             geometry: new ol.geom.Point(
                 ol.proj.fromLonLat([crossing.longitude, crossing.latitude]))
         });
+
+        // Store the id of the crossing.
+        crossing.id = crossings[i].pk;
+
+        // Change country abbrevs to country names.
+        crossing.countryFrom = COUNTRY_NAME[crossing.countryFrom];
+        crossing.countryTo = COUNTRY_NAME[crossing.countryTo];
         
         feature.setStyle(new ol.style.Style({
             image: new ol.style.Circle({
@@ -343,9 +373,10 @@ var addCrossings = function(data){
     });
 
     var rasterLayer = new ol.layer.Tile({
-        // Vanilla OSM (next line) doesn't look as good (to me) as MapQuest.
-        // source: new ol.source.OSM()
-        source: new ol.source.MapQuest({layer: 'osm'})
+        // Vanilla OSM doesn't look as good (to me) as MapQuest.
+        // source: new ol.source.MapQuest({layer: 'osm'})
+        // but MapQuest just changed (July 12 2016) to be non-free!
+        source: new ol.source.OSM()
     });
 
     /*
@@ -381,7 +412,7 @@ var addCrossings = function(data){
     });
 };
 
-$.ajax('/static/crossings/crossings.json')
+$.ajax('/crossings/')
     .done(addCrossings)
     .fail(function(){
         alert('Error fetching crossings data.');
