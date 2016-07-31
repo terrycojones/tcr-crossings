@@ -34,7 +34,7 @@ them.
 * Get feedback from others, especially people with different browsers or OS.
 * <s>Ask Shankie to point the subdomain at the deployed server.</s>
 * Ensure the site restarts if the host VM is rebooted.
-* Put a border around the panel that holds the Overview & Comments tabs.
+* <s>Put a border around the panel that holds the Overview & Comments tabs.</s>
 * Show admin people how to access the admin UI & make them accounts.
 * Limit the number of comments that are shown for a crossing, or add a scrollbar.
 

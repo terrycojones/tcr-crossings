@@ -15,6 +15,17 @@ body {
     width: 300px;
 }
 
+/*
+ * The Overview and Comments tabs at top left need to be made more
+ * obvious.  This isn't ideal, but it's better than nothing...
+ */
+#info > ul > li {
+    /* font-size: 20px; */
+    /* border-top: 1px solid #999; */
+    /* border-right: 1px solid #999; */
+    background-color: #f5f5f5;
+}
+
 #info-overview {
     display: none;
 }
